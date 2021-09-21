@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lekham">
-        <activity android:name=".PostListActivity"></activity>
+        <activity android:name=".AddPostActivity"></activity>
+        <activity android:name=".PostListActivity" />
         <activity android:name=".ForgotActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
