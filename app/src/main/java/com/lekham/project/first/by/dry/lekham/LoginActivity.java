@@ -1,7 +1,11 @@
 package com.lekham.project.first.by.dry.lekham;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +30,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -33,6 +40,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.annotations.NotNull;
 
 public class LoginActivity extends AppCompatActivity {
+    NavigationView nav;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawerLayout;
+
 
 
     private static final int RC_SIGN_IN = 101 ;
@@ -52,7 +63,33 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_login);
+
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        nav = findViewById(R.id.navmenu);
+        drawerLayout = findViewById(R.id.drawer);
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.start, R.string.end);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch(menuItem.getItemId()){
+                    case R.id.home_menu:
+                        Toast.makeText(LoginActivity.this, "Home panel is opened", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                }
+                return true;
+            }
+        });
 
 
 

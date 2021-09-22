@@ -14,4 +14,7 @@
     <string name="create">Create Account</string>
     <string name="already_have_account">Already have account?</string>
     <string name="post">Post</string>
+
+    <string name="start">Start</string>
+    <string name="end">End</string>
 </resources>
