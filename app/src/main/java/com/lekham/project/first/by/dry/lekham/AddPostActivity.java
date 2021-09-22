@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,16 +53,16 @@ public class AddPostActivity extends AppCompatActivity {
     private static final int GALLERY_CODE = 1;
     private StorageReference mStorage;
 
+
+    GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == GALLERY_CODE && resultCode == RESULT_OK){
             mImageUri = data.getData();
 
-//
-//            CropImage.activity(mImageUri).setAspectRatio(3,2).setCropShape(CropImageView.CropShape.valueOf(mImageUri.toString()))
-//                    .setGuidelines(CropImageView.Guidelines.ON)
-//                    .start(AddPostActivity.this);
             mPostImage.setImageURI(mImageUri);
 
 
@@ -109,6 +110,7 @@ public class AddPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_back) {
             startActivity(new Intent(AddPostActivity.this,PostListActivity.class));
+            finish();
         }
         return super.onOptionsItemSelected(item);
 
@@ -165,6 +167,9 @@ public class AddPostActivity extends AppCompatActivity {
                     }
                 }});
 
+        }
+        else{
+            Toast.makeText(this, "Please fill all the above first field!", Toast.LENGTH_SHORT).show();
         }
     }
 }

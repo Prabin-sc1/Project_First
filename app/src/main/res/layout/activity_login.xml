@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/person"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/person"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/topTextId"
@@ -93,11 +93,11 @@
 
             <TextView
                 android:id="@+id/forgotId"
-                android:textColor="@color/background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="2dp"
+                android:textColor="@color/background"
                 android:textSize="13sp" />
 
             <Button
@@ -112,24 +112,21 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:textColor="@color/background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="OR" />
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:text="OR"
+                android:textColor="@color/background" />
 
 
-            <Button
-                android:id="@+id/abc"
-                android:layout_width="250dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/text_selected"
-                android:text="Sign in with google"
-                android:textColor="@color/white"
-                android:textSize="16dp" />
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/signInWithGoogleId"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -146,20 +143,12 @@
 
                 <TextView
                     android:id="@+id/registerNowId"
-                    android:textColor="@color/background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
+                    android:textColor="@color/background"
                     android:textSize="15sp" />
             </LinearLayout>
-
-
-            <!--            <com.google.android.gms.common.SignInButton-->
-            <!--                android:id="@+id/signInWithGoogleId"-->
-            <!--                android:layout_width="250dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="5dp" />-->
-            <!--            -->
 
 
         </LinearLayout>
@@ -172,8 +161,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

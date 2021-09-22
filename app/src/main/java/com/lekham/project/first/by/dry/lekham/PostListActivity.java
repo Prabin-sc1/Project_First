@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -36,6 +38,8 @@ public class PostListActivity extends AppCompatActivity {
     private  BlogRecyclerAdapter blogRecyclerAdapter;
     private List<Blog> blogList;
 
+    private FloatingActionButton floatingActionButton;
+
 
 
 
@@ -43,6 +47,7 @@ public class PostListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_list);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
@@ -63,12 +68,20 @@ public class PostListActivity extends AppCompatActivity {
 
 
 
+floatingActionButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if(mUser != null && mAuth != null) {
+            startActivity(new Intent(PostListActivity.this, AddPostActivity.class));
 
+        }
+    }
+});
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.list_main_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -76,23 +89,19 @@ public class PostListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_add:
-                if(mUser != null && mAuth != null) {
-                    startActivity(new Intent(PostListActivity.this, AddPostActivity.class));
-                    finish();
-                }
-                break;
             case R.id.action_signout:
                 if(mUser != null && mAuth != null) {
                     mAuth.signOut();
-                    startActivity(new Intent(PostListActivity.this, MainActivity.class));
+                    startActivity(new Intent(PostListActivity.this, LoginActivity.class));
                     finish();
                 }
+
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     //just above two methods allow us to inflate our menu ,so that it can be shown at the top of activity
 
     @Override

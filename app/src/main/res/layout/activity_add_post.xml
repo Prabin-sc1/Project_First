@@ -7,30 +7,12 @@
     tools:context=".AddPostActivity">
 
 
-    <!--    <com.theartofdev.edmodo.cropper.CropImageView-->
-    <!--        xmlns:custom="http://schemas.android.com/apk/res-auto"-->
-    <!--        android:id="@+id/cropImageView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="1"-->
-    <!--        -->
-    <!--           -->
-    <!--            android:layout_marginStart="8dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:layout_marginEnd="8dp"-->
-    <!--            android:background="@color/white"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:srcCompat="@mipmap/add_btn" />-->
-    <!--        />-->
-
     <ImageView
         android:id="@+id/imageButton"
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:background="@color/white"
         android:scaleType="fitCenter"
@@ -46,11 +28,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/input_outline"
         android:ems="10"
+        android:fontFamily="@font/alfa_slab_one"
         android:hint="@string/post_title"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/postDescriptionET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,11 +51,11 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/input_outline"
         android:ems="10"
-        android:fontFamily="casual"
+        android:fontFamily="serif"
         android:gravity="start|right"
         android:hint="@string/post_description"
         android:inputType="textMultiLine"
-        android:textStyle="italic"
+        android:paddingLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent"
