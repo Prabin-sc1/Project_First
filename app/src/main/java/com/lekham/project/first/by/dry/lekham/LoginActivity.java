@@ -45,8 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
 
 
-
-    private static final int RC_SIGN_IN = 101 ;
+    private static final int RC_SIGN_IN = 101;
     private TextView forgot, register;
 
     private TextInputEditText email, password;
@@ -64,35 +63,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_login);
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
         nav = findViewById(R.id.navmenu);
         drawerLayout = findViewById(R.id.drawer);
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.start, R.string.end);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.end);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                switch(menuItem.getItemId()){
-                    case R.id.home_menu:
-                        Toast.makeText(LoginActivity.this, "Home panel is opened", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                switch (menuItem.getItemId()) {
+
+
                 }
                 return true;
             }
         });
-
-
-
 
 
         forgot = findViewById(R.id.forgotId);
@@ -141,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -207,8 +200,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_signout) {
@@ -220,6 +211,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -246,6 +238,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             startActivity(new Intent(getApplicationContext(), PostListActivity.class));
             finish();
+
         }
     }
 
@@ -285,8 +278,10 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startActivity(new Intent(LoginActivity.this, PostListActivity.class));
+                            finish();
                             Toast.makeText(getApplicationContext(), "Signed in with google", Toast.LENGTH_SHORT).show();
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -295,8 +290,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
 
 }

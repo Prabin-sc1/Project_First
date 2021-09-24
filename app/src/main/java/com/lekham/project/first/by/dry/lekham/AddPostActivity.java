@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.lekham.project.first.by.dry.lekham.BlogRecyclerAdapter;
 import com.lekham.project.first.by.dry.lekham.Blog;
+
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -60,13 +61,10 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GALLERY_CODE && resultCode == RESULT_OK){
+        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK) {
             mImageUri = data.getData();
 
             mPostImage.setImageURI(mImageUri);
-
-
-
         }
     }
 
@@ -80,7 +78,7 @@ public class AddPostActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("NBlog");
+        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("PBlog");
 
         mPostImage = findViewById(R.id.imageButton);
         mPostTitle = findViewById(R.id.postTitleET);
@@ -92,7 +90,7 @@ public class AddPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent,GALLERY_CODE);
+                startActivityForResult(galleryIntent, GALLERY_CODE);
 
             }
         });
@@ -106,10 +104,11 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_back) {
-            startActivity(new Intent(AddPostActivity.this,PostListActivity.class));
+            startActivity(new Intent(AddPostActivity.this, PostListActivity.class));
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -130,7 +129,7 @@ public class AddPostActivity extends AppCompatActivity {
         String titleVal = mPostTitle.getText().toString().trim();
         String descVal = mPostDesc.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(titleVal) && !TextUtils.isEmpty(descVal) && mImageUri != null){
+        if (!TextUtils.isEmpty(titleVal) && !TextUtils.isEmpty(descVal) && mImageUri != null) {
             StorageReference filepath = mStorage.child("MBlog_images").child(mImageUri.getLastPathSegment());
 
             filepath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -145,16 +144,16 @@ public class AddPostActivity extends AppCompatActivity {
                                     String imageUrl = uri.toString();
 
                                     //createNewPost(imageUrl);
-                                    DatabaseReference newPost  = mPostDatabase.push();
+                                    DatabaseReference newPost = mPostDatabase.push();
                                     Map<String, String> dataToSave = new HashMap<>();
 
 
-                                    dataToSave.put("title",titleVal);
-                                    dataToSave.put("description",descVal);
+                                    dataToSave.put("title", titleVal);
+                                    dataToSave.put("description", descVal);
 
                                     dataToSave.put("image", imageUrl);
-                                    dataToSave.put("timestamp",String.valueOf(java.lang.System.currentTimeMillis()));
-                                    dataToSave.put("userid",mUser.getUid());
+                                    dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
+                                    dataToSave.put("userid", mUser.getUid());
 
                                     newPost.setValue(dataToSave);
                                     mProgressDialog.dismiss();
@@ -165,10 +164,10 @@ public class AddPostActivity extends AppCompatActivity {
                             });
                         }
                     }
-                }});
+                }
+            });
 
-        }
-        else{
+        } else {
             Toast.makeText(this, "Please fill all the above first field!", Toast.LENGTH_SHORT).show();
         }
     }

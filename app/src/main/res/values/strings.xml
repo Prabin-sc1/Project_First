@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Lekham</string>
 
+    <string name="blog_list">Blog List</string>
+    <string name="post_blog">Post Blog</string>
 
     <string name="post_title">Post Title</string>
     <string name="post_descriptionn">Post Description</string>

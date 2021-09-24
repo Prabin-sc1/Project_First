@@ -136,7 +136,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/text_selected"
-                android:text="Log in "
+                android:text="Sign in "
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 

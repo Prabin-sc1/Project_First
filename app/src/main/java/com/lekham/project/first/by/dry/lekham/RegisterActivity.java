@@ -35,13 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signup;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register4);
         progressDialog = new ProgressDialog(this);
@@ -60,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         already.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -71,12 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String confirmPwdString = confirmPassword.getText().toString();
 
-                if(emailString.equals("") || passwordString.equals("")  || confirmPwdString.equals("")){
+                if (emailString.equals("") || passwordString.equals("") || confirmPwdString.equals("")) {
 
                     Toast.makeText(RegisterActivity.this, "Please fill your credentials correctly", Toast.LENGTH_SHORT).show();
-                } else if(!confirmPwdString.equals(passwordString)){
+                } else if (!confirmPwdString.equals(passwordString)) {
                     Toast.makeText(RegisterActivity.this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     signup(emailString, passwordString);
                 }
             }
@@ -87,12 +85,12 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
 
-                }else{
+                } else {
                     Toast.makeText(RegisterActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
                 }
             }

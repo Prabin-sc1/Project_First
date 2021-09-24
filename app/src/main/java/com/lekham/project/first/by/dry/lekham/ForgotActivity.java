@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,16 +27,20 @@ public class ForgotActivity extends AppCompatActivity {
     private TextView returnTextView;
 
 
-
     FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_forgot);
         email = findViewById(R.id.resetEmailPasswordId);
         reset = findViewById(R.id.resetBtnId);
         returnTextView = findViewById(R.id.returnId);
+
 
         returnTextView.setText(Html.fromHtml("<u>Return to login</u>"));
 
@@ -59,16 +65,17 @@ public class ForgotActivity extends AppCompatActivity {
 
 
     }
-    private void resetPassword(){
+
+    private void resetPassword() {
         String emailString = email.getText().toString().trim();
 
-        if (emailString.isEmpty()){
+        if (emailString.isEmpty()) {
             email.setError("Email is required!");
             email.requestFocus();
             return;
 //            Toast.makeText(this, "Email is required!", Toast.LENGTH_SHORT).show();
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailString).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailString).matches()) {
             email.setError("Please provide email!");
             email.requestFocus();
             return;
@@ -77,9 +84,9 @@ public class ForgotActivity extends AppCompatActivity {
         auth.sendPasswordResetEmail(emailString).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(ForgotActivity.this, "Check your email to reset password", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(ForgotActivity.this, "Try again! Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
             }

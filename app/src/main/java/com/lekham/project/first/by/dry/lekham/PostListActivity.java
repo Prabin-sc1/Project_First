@@ -31,16 +31,13 @@ import java.util.List;
 public class PostListActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseReference;
-    private FirebaseDatabase mDatabase;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private  BlogRecyclerAdapter blogRecyclerAdapter;
+    private BlogRecyclerAdapter blogRecyclerAdapter;
     private List<Blog> blogList;
 
     private FloatingActionButton floatingActionButton;
-
-
 
 
     @Override
@@ -50,47 +47,43 @@ public class PostListActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mDatabase.getReference().child("NBlog");
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mDatabase.getReference().child("PBlog");
         //Reminder:just because of the the typo Blog instead of NBlog i was stuck here for more than 20 days it was like nightmare, this is real pain
         mDatabaseReference.keepSynced(true);
 
         blogList = new ArrayList<>();
 
 
-
-
-        recyclerView =(RecyclerView) findViewById(R.id.recyclerViewId);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewId);
 
         recyclerView.setAdapter(blogRecyclerAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-floatingActionButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        if(mUser != null && mAuth != null) {
-            startActivity(new Intent(PostListActivity.this, AddPostActivity.class));
-
-        }
-    }
-});
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mUser != null && mAuth != null) {
+                    startActivity(new Intent(PostListActivity.this, AddPostActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.list_main_menu, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_signout:
-                if(mUser != null && mAuth != null) {
+                if (mUser != null && mAuth != null) {
                     mAuth.signOut();
                     startActivity(new Intent(PostListActivity.this, LoginActivity.class));
                     finish();
@@ -113,7 +106,7 @@ floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 Blog blog = snapshot.getValue(Blog.class);
                 blogList.add(blog);
                 Collections.reverse(blogList);//to get new one post at the top
-                blogRecyclerAdapter = new BlogRecyclerAdapter(PostListActivity.this,blogList);
+                blogRecyclerAdapter = new BlogRecyclerAdapter(PostListActivity.this, blogList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(PostListActivity.this));
                 recyclerView.setAdapter(blogRecyclerAdapter);
                 blogRecyclerAdapter.notifyDataSetChanged();

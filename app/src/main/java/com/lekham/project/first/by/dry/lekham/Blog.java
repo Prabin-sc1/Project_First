@@ -7,7 +7,7 @@ public class Blog {
     public String timestamp;
     public String userid;
 
-    public Blog(){
+    public Blog() {
 
     }
 

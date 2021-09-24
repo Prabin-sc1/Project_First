@@ -9,11 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lekham">
-        <activity android:name=".AddPostActivity"></activity>
-        <activity android:name=".PostListActivity" />
+        <activity android:name=".ElaborateActivity"></activity>
+        <activity android:name=".AddPostActivity"
+            android:label="@string/post_blog"/>
+        <activity android:name=".PostListActivity"
+            android:label="@string/blog_list"/>
         <activity android:name=".ForgotActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
